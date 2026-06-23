@@ -47,28 +47,23 @@
 
 ### 方式一：WorkBuddy Skill 安装（推荐）
 
-这是最简单的安装方式——全程对话式引导，无需手动敲命令。
-
-**1. 克隆本仓库**
-
-```bash
-git clone https://github.com/你的用户名/wechat-daily-summary.git
-```
-
-**2. 在 WorkBuddy 中导入 Skill**
-
-将 `SKILL.md` 文件拖入 WorkBuddy，或在对话中说：
+**一句话安装**——在 WorkBuddy 对话中直接说：
 
 ```
-@skill:wechat-daily-summary 生成今天的微信摘要
+帮我安装 https://github.com/mumuxiaya/wechat-daily-summary 的 skill
 ```
 
-首次使用时 AI 会自动完成：
+AI 会自动完成：克隆仓库 → 导入 SKILL.md → 检测环境 → 安装依赖 → 引导配置。
+
+> 💡 此方式需要 WorkBuddy 已安装 `github-skill-installer`（默认内置）。
+> 如未安装，可先安装安装器：`帮我从 GitHub 安装 github-skill-installer`
+
+安装完成后 AI 会自动完成：
 - ✅ 检测环境 → 安装 wechat-cli
 - ✅ 对话式配置（问 4 个问题，详见下文）
 - ✅ 生成第一份摘要
 
-**3. 设置定时自动化（可选）**
+**设置定时自动化（可选）**
 
 在 WorkBuddy 中创建自动化任务，每天自动生成微信日报。
 
