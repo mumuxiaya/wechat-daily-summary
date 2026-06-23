@@ -47,19 +47,15 @@
 
 ### 方式一：WorkBuddy Skill 安装（推荐）
 
-**一句话安装**——在 WorkBuddy 对话中直接说：
+**一句话安装**——在 WorkBuddy 对话中粘贴下面这句话：
 
 ```
-帮我安装 https://github.com/mumuxiaya/wechat-daily-summary 的 skill
+请克隆 https://github.com/mumuxiaya/wechat-daily-summary 仓库，将所有文件复制到 ~/.workbuddy/skills/wechat-daily-summary/，然后按 SKILL.md 自动完成环境检测、依赖安装和配置引导。
 ```
 
-AI 会自动完成：克隆仓库 → 导入 SKILL.md → 检测环境 → 安装依赖 → 引导配置。
-
-> 💡 此方式需要 WorkBuddy 已安装 `github-skill-installer`（默认内置）。
-> 如未安装，可先安装安装器：`帮我从 GitHub 安装 github-skill-installer`
-
-安装完成后 AI 会自动完成：
-- ✅ 检测环境 → 安装 wechat-cli
+AI 会根据 SKILL.md 自动完成全部工作：
+- ✅ 克隆仓库，复制到 skills 目录
+- ✅ 检测环境 → 自动安装 wechat-cli + PyYAML
 - ✅ 对话式配置（问 4 个问题，详见下文）
 - ✅ 生成第一份摘要
 
