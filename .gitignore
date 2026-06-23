@@ -1,0 +1,48 @@
+# 个人配置（含联系人数据，绝不提交）
+config.yaml
+config_v2.json
+config_v2.json.bak
+
+# 生成的摘要（含聊天记录，绝不提交）
+summaries/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+
+# 虚拟环境
+venv/
+.venv/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# WorkBuddy 内部数据
+.workbuddy/
+.playwright-cli/
+
+# 旧版/废弃脚本（已合并到 v3）
+run_daily.py
+run_daily_v2.py
+run_history.py
+setup_task.py
+step1_get_key.py
+step2_decrypt_db.py
+step3_read_messages.py
+step4_generate_summary.py
+get_key_direct.py
+extract_forwarded.py
+gen_0522_v2.js
+
+# 个人文件
+0522_current.docx
+tdocs_sheet.png
+exports/
+unpacked/
+周报归档/
+周报*.md
