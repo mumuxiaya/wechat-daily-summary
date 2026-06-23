@@ -51,14 +51,19 @@ git --version
 
 **征求用户同意后**，根据操作系统自动执行安装：
 
-- **Windows**：尝试 `winget install --id Git.Git --accept-source-agreements --accept-package-agreements`。如果 winget 不可用，回退到人工指引：
-  ```
-  winget 不可用，请手动安装 Git：
-  https://git-scm.com/downloads/win
-  下载安装包，一路默认即可，安装完成后重新触发此技能。
-  ```
+- **Windows**（按优先级尝试）：
+  1. 首选：`winget install --id Git.Git --accept-source-agreements --accept-package-agreements`
+  2. 备选：`choco install git -y`（Chocolatey 更稳定，PATH 自动刷新）
+  3. 回退：指引用户手动安装 `https://git-scm.com/downloads/win`
+
 - **macOS**：`brew install git`（如果 brew 不可用则指引用户安装 brew 后再试）
 - **Linux**：`sudo apt install git -y` / `sudo yum install git -y`（按发行版选择）
+
+**安装后验证**：再次执行 `git --version`。如果找不到命令（常见于 winget 安装后 PATH 未刷新），按以下顺序尝试：
+  1. 刷新环境变量：Windows 执行 `refreshenv`（如果安装了 Chocolatey）或建议用户重启终端
+  2. 使用完整路径 `"C:\Program Files\Git\bin\git.exe" --version` 验证是否安装成功
+  3. 如果完整路径可用但 `git` 命令找不到 → 提示用户：「Git 已安装但需要重启终端才能生效。请关闭当前终端窗口后重新打开，然后再次触发此技能。」
+  4. 如果完整路径也找不到 → 安装失败，指引用户手动安装
 
 安装成功 → 继续 0.2。安装失败或用户拒绝 → **停止流程**。
 
@@ -69,10 +74,11 @@ python -c "import yaml"
 ```
 
 - **如果成功** → 继续 0.3
-- **如果失败** → 自动执行以下命令安装：
+- **如果失败** → 按优先级尝试安装：
 
 ```bash
-pip install pyyaml
+# 优先尝试 pip，失败则用 pip3
+pip install pyyaml || pip3 install pyyaml
 ```
 
 安装成功后继续 0.3。PyYAML 缺失不影响脚本运行（有 JSON 降级），但配置文件将使用 YAML 格式。
@@ -342,6 +348,9 @@ python run_daily_v3.py --mode specific --date YYYY-MM-DD
 
 **助手**：
 ```
+正在检查运行环境...
+✅ Git 已安装
+✅ PyYAML 已安装
 检测到 wechat-cli 未安装，我可以帮你自动安装吗？（约2-3分钟）
 ```
 
