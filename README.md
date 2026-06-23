@@ -45,16 +45,16 @@
 
 ---
 
-### 方式一：WorkBuddy Skill 安装（推荐）
+### 方式一：AI Agent 安装（推荐）
 
-**一句话安装**——在 WorkBuddy 对话中粘贴下面这句话：
+**一句话安装**——在 WorkBuddy / Codex / Claude Code 等任意 AI Agent 中粘贴：
 
 ```
-请克隆 https://github.com/mumuxiaya/wechat-daily-summary 仓库，将所有文件复制到 ~/.workbuddy/skills/wechat-daily-summary/，然后按 SKILL.md 自动完成环境检测、依赖安装和配置引导。
+请安装 https://github.com/mumuxiaya/wechat-daily-summary
 ```
 
-AI 会根据 SKILL.md 自动完成全部工作：
-- ✅ 克隆仓库，复制到 skills 目录
+AI 会自动读取项目中的 SKILL.md，完成全部工作：
+- ✅ 克隆仓库并放到合适的位置
 - ✅ 检测环境 → 自动安装 wechat-cli + PyYAML
 - ✅ 对话式配置（问 4 个问题，详见下文）
 - ✅ 生成第一份摘要
