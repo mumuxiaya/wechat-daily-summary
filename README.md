@@ -50,7 +50,7 @@
 **一句话安装**——在 WorkBuddy / Codex / Claude Code 等任意 AI Agent 中粘贴：
 
 ```
-请安装 https://github.com/mumuxiaya/wechat-daily-summary
+帮我配置并安装 https://github.com/mumuxiaya/wechat-daily-summary
 ```
 
 AI 会自动读取项目中的 SKILL.md，完成全部工作：
