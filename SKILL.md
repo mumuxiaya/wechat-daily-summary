@@ -46,15 +46,21 @@ git --version
 ```
 检测到 Git 未安装。Git 是安装 wechat-cli 的必要前提。
 
-请先安装 Git：
-- Windows: https://git-scm.com/downloads/win（下载安装包运行即可）
-- macOS: brew install git
-- Linux: apt install git / yum install git
-
-安装完成后，重新触发此技能。
+我可以帮你自动安装 Git 吗？（安装完成后需要重启终端才会生效）
 ```
 
-⚠️ Git 未安装时，**停止流程**，因为后续无法 clone wechat-cli 仓库。
+**征求用户同意后**，根据操作系统自动执行安装：
+
+- **Windows**：尝试 `winget install --id Git.Git --accept-source-agreements --accept-package-agreements`。如果 winget 不可用，回退到人工指引：
+  ```
+  winget 不可用，请手动安装 Git：
+  https://git-scm.com/downloads/win
+  下载安装包，一路默认即可，安装完成后重新触发此技能。
+  ```
+- **macOS**：`brew install git`（如果 brew 不可用则指引用户安装 brew 后再试）
+- **Linux**：`sudo apt install git -y` / `sudo yum install git -y`（按发行版选择）
+
+安装成功 → 继续 0.2。安装失败或用户拒绝 → **停止流程**。
 
 #### 0.2 检测 PyYAML 是否安装
 
@@ -320,7 +326,7 @@ python run_daily_v3.py --mode specific --date YYYY-MM-DD
 | 错误情况 | 处理方式 |
 |---------|---------|
 | 微信 PC 版未运行 | 提示用户启动微信 PC 版并登录 |
-| Git 未安装 | 提示用户安装 Git（https://git-scm.com/downloads），流程中止 |
+| Git 未安装 | AI 征求用户同意后自动安装（winget/brew/apt），失败则指引手动安装并中止 |
 | PyYAML 未安装 | AI 自动执行 `pip install pyyaml` |
 | wechat-cli 未安装 | AI 征求用户同意后，自动运行 setup_wechat_cli.py |
 | config.yaml 不存在 | AI 通过对话引导用户配置，然后生成 config.yaml |
