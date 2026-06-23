@@ -34,16 +34,53 @@ agent_created: true
 
 **重要：以下步骤由 AI 自动完成，无需用户手动操作任何终端命令。**
 
-#### 0.1 检测 wechat-cli 是否已安装
+#### 0.1 检测 Git 是否安装
+
+```bash
+git --version
+```
+
+- **如果成功（显示版本号）** → 继续 0.2
+- **如果失败（找不到命令）** → 提示用户：
+
+```
+检测到 Git 未安装。Git 是安装 wechat-cli 的必要前提。
+
+请先安装 Git：
+- Windows: https://git-scm.com/downloads/win（下载安装包运行即可）
+- macOS: brew install git
+- Linux: apt install git / yum install git
+
+安装完成后，重新触发此技能。
+```
+
+⚠️ Git 未安装时，**停止流程**，因为后续无法 clone wechat-cli 仓库。
+
+#### 0.2 检测 PyYAML 是否安装
+
+```bash
+python -c "import yaml"
+```
+
+- **如果成功** → 继续 0.3
+- **如果失败** → 自动执行以下命令安装：
+
+```bash
+pip install pyyaml
+```
+
+安装成功后继续 0.3。PyYAML 缺失不影响脚本运行（有 JSON 降级），但配置文件将使用 YAML 格式。
+
+#### 0.3 检测 wechat-cli 是否已安装
 
 ```bash
 wechat-cli --version
 ```
 
-- **如果成功（显示版本号）** → 跳到 0.3
-- **如果失败（找不到命令）** → 进入 0.2
+- **如果成功（显示版本号）** → 跳到 0.5
+- **如果失败（找不到命令）** → 进入 0.4
 
-#### 0.2 自动安装 wechat-cli（征求用户同意）
+#### 0.4 自动安装 wechat-cli（征求用户同意）
 
 当检测到 wechat-cli 未安装时，向用户说明：
 
@@ -70,14 +107,14 @@ cd <脚本所在目录> && python setup_wechat_cli.py
 
 如果安装失败，告知用户错误信息并停止。
 
-#### 0.3 检测 config.yaml 是否存在
+#### 0.5 检测 config.yaml 是否存在
 
 检查脚本目录下是否存在 `config.yaml` 文件。
 
 - **如果存在** → 跳到步骤 1
-- **如果不存在** → 进入 0.4
+- **如果不存在** → 进入 0.6
 
-#### 0.4 引导用户完成配置（AI 对话式）
+#### 0.6 引导用户完成配置（AI 对话式）
 
 当 `config.yaml` 不存在时，AI 通过**对话提问**收集用户配置偏好，然后**直接生成 `config.yaml` 文件**。用户无需手动编辑任何文件。
 
@@ -158,7 +195,7 @@ summary_mode: "rule"  # 根据用户回答
 **命令类型**：
 - "列出微信群" / "有哪些微信群" → 执行 `--list-groups` 命令
 - "列出微信联系人" / "有哪些微信联系人" → 执行 `--list-contacts` 命令
-- "配置微信摘要" / "初始化微信摘要" → 跳到步骤 0.3，引导 AI 对话式配置
+- "配置微信摘要" / "初始化微信摘要" → 跳到步骤 0.5，引导 AI 对话式配置
 - "最近N天" / "这周" / "上周" → 计算日期范围后使用 `--date-range` 聚合模式
 - 其他 → 执行摘要生成
 
@@ -174,10 +211,10 @@ summary_mode: "rule"  # 根据用户回答
    - 如果未运行，提示用户：`微信 PC 版未运行，请先启动微信并登录，然后重新触发此技能。`
 
 2. **config.yaml 已存在**
-   - 如果不存在 → 回到步骤 0.4，引导 AI 对话式配置
+   - 如果不存在 → 回到步骤 0.6，引导 AI 对话式配置
 
 3. **wechat-cli 可用**
-   - 如果不可用 → 回到步骤 0.2，自动安装
+   - 如果不可用 → 回到步骤 0.4，自动安装
 
 ### 步骤 3：执行命令
 
@@ -283,6 +320,8 @@ python run_daily_v3.py --mode specific --date YYYY-MM-DD
 | 错误情况 | 处理方式 |
 |---------|---------|
 | 微信 PC 版未运行 | 提示用户启动微信 PC 版并登录 |
+| Git 未安装 | 提示用户安装 Git（https://git-scm.com/downloads），流程中止 |
+| PyYAML 未安装 | AI 自动执行 `pip install pyyaml` |
 | wechat-cli 未安装 | AI 征求用户同意后，自动运行 setup_wechat_cli.py |
 | config.yaml 不存在 | AI 通过对话引导用户配置，然后生成 config.yaml |
 | 脚本执行失败 | 显示错误信息，提供排查建议 |

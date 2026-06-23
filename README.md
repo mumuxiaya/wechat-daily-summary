@@ -40,7 +40,8 @@
 |------|------|
 | **微信 PC 版** | 运行中且已登录（Windows only） |
 | **Python 3.8+** | 运行脚本 |
-| **Git** | 安装 wechat-cli 时用 |
+| **Git** | 安装 wechat-cli 时 clone 仓库用 |
+| **PyYAML** | Python 依赖（AI 自动安装，无需手动处理） |
 
 ---
 
