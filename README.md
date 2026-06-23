@@ -45,9 +45,9 @@
 
 ---
 
-### 方式一：AI Agent 安装（推荐）
+### 方式一：WorkBuddy 安装（推荐）
 
-**一句话安装**——在 WorkBuddy / Codex / Claude Code 等任意 AI Agent 中粘贴：
+**一句话安装**——在 WorkBuddy 对话中粘贴：
 
 ```
 帮我配置并安装 https://github.com/mumuxiaya/wechat-daily-summary
